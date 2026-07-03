@@ -28,33 +28,35 @@ export async function POST(request: Request) {
     );
   }
 
+  const cleanEmail = email.trim().toLowerCase();
   const resend = new Resend(apiKey);
 
   try {
-    // Add the subscriber to a Resend audience (your list). This does NOT send
-    // an email, so it needs no verified domain and isn't limited by test mode.
+    // 1) Save the subscriber to a Resend audience (the list). This needs no
+    //    verified domain and isn't limited by test mode.
     const { error } = await resend.contacts.create({
       audienceId,
-      email: email.trim().toLowerCase(),
+      email: cleanEmail,
       unsubscribed: false,
     });
 
     if (error) {
       console.error("Resend contacts error:", error);
-
-      // Resend throttles to a few requests/second — surface a clear message.
       if (error.name === "rate_limit_exceeded") {
         return Response.json(
           { error: "Too many requests — please wait a moment and try again." },
           { status: 429 },
         );
       }
-
       return Response.json(
         { error: "Could not subscribe right now. Please try again." },
         { status: 502 },
       );
     }
+
+    // 2) Notify the site owner. Best-effort: the subscriber is already saved,
+    //    so a failed notification email must NOT fail the request.
+    await notifyOwner(resend, cleanEmail);
 
     return Response.json({ ok: true });
   } catch (err) {
@@ -63,5 +65,28 @@ export async function POST(request: Request) {
       { error: "Something went wrong. Please try again." },
       { status: 500 },
     );
+  }
+}
+
+/** Emails the owner about a new subscriber. Never throws. */
+async function notifyOwner(resend: Resend, subscriber: string) {
+  const to = process.env.RESEND_NOTIFY_TO;
+  if (!to) return; // notifications are optional
+
+  // Sender must be a verified domain in Resend; `onboarding@resend.dev` works
+  // out of the box, but in test mode can only deliver to the account owner.
+  const from = process.env.RESEND_FROM ?? "Foxy <onboarding@resend.dev>";
+
+  try {
+    const { error } = await resend.emails.send({
+      from,
+      to,
+      replyTo: subscriber,
+      subject: "New Foxy subscriber 🦊",
+      text: `A new user just subscribed to Foxy:\n\n${subscriber}`,
+    });
+    if (error) console.error("Resend notify error:", error);
+  } catch (err) {
+    console.error("Notify failed:", err);
   }
 }
