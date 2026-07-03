@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Gluten, Nunito } from "next/font/google";
 import "./globals.css";
 import RevealManager from "@/components/RevealManager";
+import { Analytics } from "@vercel/analytics/next";
 
 // Enable the scroll-reveal hidden state before paint (skipped for reduced
 // motion) so tagged elements can animate in without a flash of content.
@@ -36,6 +37,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: REVEAL_INIT }} />
         {children}
         <RevealManager />
+        <Analytics />
       </body>
     </html>
   );
