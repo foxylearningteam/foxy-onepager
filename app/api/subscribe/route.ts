@@ -46,6 +46,22 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error("Resend error:", error);
+
+      // Resend throttles to a few requests/second — surface a clear message.
+      if (error.name === "rate_limit_exceeded") {
+        return Response.json(
+          { error: "Too many requests — please wait a moment and try again." },
+          { status: 429 },
+        );
+      }
+      // Daily/monthly sending quota reached on the current plan.
+      if (error.name === "daily_quota_exceeded") {
+        return Response.json(
+          { error: "The mailbox is full for today. Please try again tomorrow." },
+          { status: 429 },
+        );
+      }
+
       return Response.json(
         { error: "Could not subscribe right now. Please try again." },
         { status: 502 },
