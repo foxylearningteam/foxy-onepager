@@ -14,7 +14,6 @@ import educationImg from "@/assets/education.png";
 import gamificationImg from "@/assets/gamification.png";
 import intelligentImg from "@/assets/inteligent.png";
 import researchImg from "@/assets/research.png";
-import rewardingImg from "@/assets/rewarding.png";
 import FoxyNinja from "@/assets/Foxy-ninja.svg";
 import FoxyTeacher from "@/assets/Foxy-teacher.svg";
 import FoxyChild from "@/assets/foxy-child.svg";
@@ -23,7 +22,8 @@ type Feature = {
   label: string;
   title: React.ReactNode;
   body: string;
-  image: StaticImageData;
+  image?: StaticImageData;
+  video?: string;
   imageAlt: string;
   imageClassName: string;
   reverse?: boolean;
@@ -89,9 +89,9 @@ const RESEARCH_FEATURES: Feature[] = [
     reverse: true,
     title: "physical rewards",
     body: "Earn real-world rewards for your hard work! Learning math has never been this rewarding – both digitally and physically!",
-    image: rewardingImg,
+    video: "/foxy.mp4",
     imageAlt: "Foxy physical rewards and merchandise",
-    imageClassName: "w-80",
+    imageClassName: "w-full rounded-3xl",
   },
 ];
 

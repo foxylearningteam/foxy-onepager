@@ -5,8 +5,11 @@ type FeatureRowProps = {
   label: string;
   title: React.ReactNode;
   body: React.ReactNode;
-  image: StaticImageData;
   imageAlt: string;
+  /** Static illustration. Provide this or `video`. */
+  image?: StaticImageData;
+  /** Looping video (public/ path). Takes precedence over `image`. */
+  video?: string;
   reverse?: boolean;
   imageClassName?: string;
 };
@@ -16,6 +19,7 @@ export default function FeatureRow({
   title,
   body,
   image,
+  video,
   imageAlt,
   reverse = false,
   imageClassName = "",
@@ -40,13 +44,27 @@ export default function FeatureRow({
       <div
         data-reveal
         style={{ "--reveal-delay": "120ms" } as React.CSSProperties}
-        className="flex flex-1 justify-center"
+        className={`flex flex-1 justify-center ${video ? "md:flex-[1.6]" : ""}`}
       >
-        <Image
-          src={image}
-          alt={imageAlt}
-          className={`h-auto w-auto ${imageClassName}`}
-        />
+        {video ? (
+          <video
+            src={video}
+            autoPlay
+            loop
+            muted
+            playsInline
+            aria-label={imageAlt}
+            className={`h-auto ${imageClassName}`}
+          />
+        ) : (
+          image && (
+            <Image
+              src={image}
+              alt={imageAlt}
+              className={`h-auto w-auto ${imageClassName}`}
+            />
+          )
+        )}
       </div>
     </div>
   );
