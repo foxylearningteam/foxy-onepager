@@ -29,7 +29,7 @@ export default function EmailForm() {
 
       if (res.ok) {
         setStatus("success");
-        setMessage("Thanks! Check your inbox soon. 🦊");
+        setMessage("Thanks! You're on the list.");
         setEmail("");
       } else {
         setStatus("error");
