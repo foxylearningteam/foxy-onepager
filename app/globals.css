@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* Brand palette (sampled from the Foxy assets) */
+  --color-navy: #09116f;
+  --color-orange: #ff6b29;
+  --color-orange-soft: #ffab99;
+  --color-purple: #6a41f1;
+  --color-peach: #fdeee8;
+  --color-peach-deep: #f9c4aa;
+  --color-ink: #4f5179;
+  --color-label: #8687ab;
+
+  /* Chunky "bottom lip" edges + input placeholder */
+  --color-lip: #f19041; /* card lip on peach-deep sections */
+  --color-button-edge: #1725bf; /* button bottom lip */
+  --color-placeholder: #7479f6; /* email input placeholder */
+
+  --font-gluten: var(--font-gluten);
+  --font-nunito: var(--font-nunito);
+}
+
+:root {
+  --background: #fdeee8;
+  --foreground: #09116f;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-nunito), Arial, Helvetica, sans-serif;
+}
+
+/*
+ * Scroll reveal: elements tagged with [data-reveal] fade + slide in as they
+ * enter the viewport. The hidden state only applies once JS adds `.js-reveal`
+ * to <html> (see layout.tsx), so content stays visible without JS and for
+ * users who prefer reduced motion.
+ */
+.js-reveal [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.js-reveal [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
