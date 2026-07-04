@@ -89,9 +89,9 @@ const RESEARCH_FEATURES: Feature[] = [
     reverse: true,
     title: "physical rewards",
     body: "Earn real-world rewards for your hard work! Learning math has never been this rewarding – both digitally and physically!",
-    video: "/foxy.mp4",
+    video: "/foxy_06.mp4",
     imageAlt: "Foxy physical rewards and merchandise",
-    imageClassName: "w-full rounded-3xl",
+    imageClassName: "w-full",
   },
 ];
 
@@ -278,18 +278,18 @@ export default function Home() {
 
           <div
             data-reveal
-            className="flex items-end justify-center gap-2 sm:gap-6"
+            className="flex items-center justify-center gap-2 sm:gap-6"
           >
             <Image
               src={FoxyTeacher}
               alt="Foxy teacher mascot"
-              className="hidden h-auto w-24 shrink-0 sm:block md:w-36"
+              className="hidden h-auto w-28 shrink-0 sm:block md:w-48"
             />
             <EmailForm />
             <Image
               src={FoxyChild}
               alt="Foxy child mascot"
-              className="hidden h-auto w-24 shrink-0 sm:block md:w-36"
+              className="hidden h-auto w-28 shrink-0 sm:block md:w-48"
             />
           </div>
         </div>

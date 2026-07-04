@@ -1,6 +1,17 @@
 import Image, { type StaticImageData } from "next/image";
 import SectionLabel from "./SectionLabel";
 
+// Fades all four edges of the video to transparent so its (matching) background
+// dissolves into the section background instead of showing a hard rectangle.
+const FEATHER =
+  "linear-gradient(to right, transparent, #000 14%, #000 86%, transparent), linear-gradient(to bottom, transparent, #000 12%, #000 88%, transparent)";
+const featherStyle: React.CSSProperties = {
+  maskImage: FEATHER,
+  WebkitMaskImage: FEATHER,
+  maskComposite: "intersect",
+  WebkitMaskComposite: "source-in",
+};
+
 type FeatureRowProps = {
   label: string;
   title: React.ReactNode;
@@ -54,6 +65,7 @@ export default function FeatureRow({
             muted
             playsInline
             aria-label={imageAlt}
+            style={featherStyle}
             className={`h-auto ${imageClassName}`}
           />
         ) : (
