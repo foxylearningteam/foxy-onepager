@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Foxy — landing page
 
-## Getting Started
+Marketing one-pager for the Foxy math app, built with Next.js and Tailwind CSS.
 
-First, run the development server:
+## Develop
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Set the required keys in `.env.local` (see the comments there):
 
-## Learn More
+- `RESEND_API_KEY`, `RESEND_AUDIENCE_ID`, `RESEND_NOTIFY_TO` — subscribe form (stores signups in a Resend audience and emails a notification).
+- `NOTION_TOKEN`, `NOTION_DATABASE_ID` — optional CMS for editable page copy. See [NOTION.md](NOTION.md).
 
-To learn more about Next.js, take a look at the following resources:
+The same variables must also be set in the hosting provider (e.g. Vercel → Settings → Environment Variables).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Content
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All page copy is editable in Notion when configured — see **[NOTION.md](NOTION.md)**. Edits appear within ~30s, or instantly via `POST /api/revalidate`. Without Notion, the built-in default copy is used.

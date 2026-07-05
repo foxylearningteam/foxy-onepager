@@ -45,7 +45,7 @@ export default function FeatureRow({
         <div className="mb-2">
           <SectionLabel>{label}</SectionLabel>
         </div>
-        <h3 className="mb-5 font-gluten text-[32px] font-bold leading-[1.15] text-purple sm:text-4xl">
+        <h3 className="mb-5 whitespace-pre-line font-gluten text-[32px] font-bold leading-[1.15] text-purple sm:text-4xl">
           {title}
         </h3>
         <p className="max-w-md font-nunito text-xl leading-relaxed text-ink">

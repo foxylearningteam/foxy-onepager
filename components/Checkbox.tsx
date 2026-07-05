@@ -19,7 +19,7 @@ export default function Checkbox({ id, checked, onChange, children }: CheckboxPr
           className="peer sr-only"
         />
         <span className="flex h-6 w-6 items-center justify-center rounded-[7px] border-[2.5px] border-purple bg-white">
-          {/* Checkmark path from assets/Checkbox.svg */}
+          {/* Checkmark (shown when checked) */}
           <svg
             viewBox="9.5 9.5 13 13"
             className={`h-[13px] w-[13px] transition-opacity ${

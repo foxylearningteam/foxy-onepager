@@ -2,7 +2,7 @@
 
 import Button from "./Button";
 
-export default function HeroCTA() {
+export default function HeroCTA({ label }: { label: string }) {
   function scrollToStories() {
     document
       .getElementById("exciting-stories")
@@ -11,7 +11,7 @@ export default function HeroCTA() {
 
   return (
     <Button size="lg" className="mt-8" onClick={scrollToStories}>
-      Start Exploring
+      {label}
     </Button>
   );
 }

@@ -19,7 +19,7 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-  title: "Foxy — learn math easy!",
+  title: "Foxy app",
   description: "The free, fun, and effective way to learn math!",
 };
 
@@ -31,6 +31,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      // The reveal init script adds a `js-reveal` class to <html> before
+      // hydration; suppress the expected className mismatch warning.
+      suppressHydrationWarning
       className={`${gluten.variable} ${nunito.variable} h-full antialiased`}
     >
       <body className="min-h-full">

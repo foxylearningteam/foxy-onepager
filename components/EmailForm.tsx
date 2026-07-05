@@ -6,7 +6,18 @@ import Checkbox from "./Checkbox";
 
 type Status = "idle" | "loading" | "success" | "error";
 
-export default function EmailForm() {
+export type EmailFormText = {
+  formLabel: string;
+  placeholder: string;
+  submitLabel: string;
+  consentIntro: string;
+  termsLabel: string;
+  privacyLabel: string;
+  consentAnd: string;
+  successMessage: string;
+};
+
+export default function EmailForm({ text }: { text: EmailFormText }) {
   const [email, setEmail] = useState("");
   const [agreed, setAgreed] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
@@ -29,7 +40,7 @@ export default function EmailForm() {
 
       if (res.ok) {
         setStatus("success");
-        setMessage("Thanks! You're on the list.");
+        setMessage(text.successMessage);
         setEmail("");
       } else {
         setStatus("error");
@@ -50,7 +61,7 @@ export default function EmailForm() {
         htmlFor="email"
         className="block text-center font-nunito text-2xl font-extrabold text-purple"
       >
-        Enter your email here:
+        {text.formLabel}
       </label>
 
       <input
@@ -58,19 +69,19 @@ export default function EmailForm() {
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="Your email"
+        placeholder={text.placeholder}
         aria-invalid={status === "error"}
         className="w-full rounded-2xl border-2 border-peach-deep bg-peach px-5 py-4 font-nunito text-base font-extrabold text-navy placeholder:font-extrabold placeholder:text-placeholder focus:border-orange focus:outline-none"
       />
 
       <Checkbox id="terms" checked={agreed} onChange={setAgreed}>
-        I am at least 18 years old and agree to Foxy&apos;s{" "}
+        {text.consentIntro}{" "}
         <a href="#" className="font-bold text-navy underline">
-          Terms of Use
+          {text.termsLabel}
         </a>{" "}
-        and{" "}
+        {text.consentAnd}{" "}
         <a href="#" className="font-bold text-navy underline">
-          Privacy Policy
+          {text.privacyLabel}
         </a>
       </Checkbox>
 
@@ -84,7 +95,7 @@ export default function EmailForm() {
             ? "Subscribing…"
             : status === "success"
               ? "Subscribed!"
-              : "Subscribe"}
+              : text.submitLabel}
         </Button>
 
         {message && (
